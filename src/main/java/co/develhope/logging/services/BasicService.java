@@ -3,6 +3,7 @@ package co.develhope.logging.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
@@ -10,16 +11,16 @@ import org.springframework.stereotype.Service;
 public class BasicService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BasicService.class);
-    @Autowired
-    private Environment enviroment;
+    @Value("${customEnvs.n1}")
+    private double n1;
 
+    @Value("${customEnvs.n2}")
+    private double n2;
 
-    public int calculateExponent() {
-        LOGGER.debug("Calculating exponent...");
-        int base = Integer.parseInt(enviroment.getProperty("customEnvs.n1"));
-        int exponent = Integer.parseInt(enviroment.getProperty("customEnvs.n2"));
-        int result = (int) Math.pow(base, exponent);
-        LOGGER.debug("Exponent calculated: {}", result);
-        return result;
+    public double getExp(){
+        LOGGER.debug("Starting calculation");
+        double t = Math.pow(n1, n2);
+        LOGGER.debug("Calculation ended");
+        return t;
     }
 }

@@ -28,23 +28,13 @@ public class BasicController {
 
     @RequestMapping("/exp")
     public String exponent() {
-        LOGGER.debug("Exponent calculation started");
-        int base = Integer.parseInt(enviroment.getProperty("customEnvs.n1"));
-        int exponent = Integer.parseInt(enviroment.getProperty("customEnvs.n2"));
-        double result = Math.pow(base, exponent);
-        LOGGER.debug("Exponent calculation finished with result: {}", result);
-        return "The exponent of " + base + " and " + exponent + " is " + result;
+        return "The result is: " + basicService.getExp();
     }
 
     @GetMapping("/get-errors")
-    public void getErrors() throws MyCustomException {
-        LOGGER.error("Custom error thrown");
-        throw new MyCustomException("Sorry, you get an error :(");
+    public void getError(){
+        LOGGER.error("Error thrown");
+        throw new RuntimeException("Sorry, you got an error :(");
     }
 
-    private static class MyCustomException extends Exception {
-        public MyCustomException(String message) {
-            super(message);
-        }
-    }
 }
